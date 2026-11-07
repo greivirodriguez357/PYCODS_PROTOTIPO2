@@ -1,0 +1,30 @@
+<div class="auth-page">
+  <div class="pycods-card auth-card text-center">
+    <div class="mb-4">
+      <app-mascot [size]="130" mood="happy"></app-mascot>
+      <h2 class="text-3xl font-bold text-indigo-700 m-1">¡Bienvenido a Pycods!</h2>
+      <p class="text-500 font-medium">Aprende Python jugando</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="flex flex-column gap-3 text-left">
+      <div class="flex flex-column gap-2">
+        <label for="email" class="font-semibold text-700">Correo Electrónico</label>
+        <input id="email" type="email" pInputText formControlName="email" placeholder="tu@correo.com" class="w-full" />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="password" class="font-semibold text-700">Contraseña</label>
+        <p-password id="password" formControlName="password" [toggleMask]="true" [feedback]="false" placeholder="••••••••" styleClass="w-full" inputStyleClass="w-full"></p-password>
+      </div>
+
+      <p-message *ngIf="errorMessage" severity="error" [text]="errorMessage" styleClass="w-full"></p-message>
+
+      <button pButton type="submit" label="Iniciar Sesión 🚀" class="p-button-indigo w-full mt-2" [disabled]="loginForm.invalid || loading" [loading]="loading"></button>
+
+      <div class="text-center mt-3">
+        <span class="text-600 font-medium">¿No tienes cuenta? </span>
+        <a routerLink="/register" class="text-indigo-600 font-bold no-underline hover:underline">Regístrate gratis</a>
+      </div>
+    </form>
+  </div>
+</div>

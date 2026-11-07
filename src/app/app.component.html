@@ -1,0 +1,32 @@
+<div class="app-container">
+  <header class="pycods-navbar">
+    <div class="navbar-inner">
+      <a class="brand" [routerLink]="auth.isLoggedIn() ? '/dashboard' : '/login'" aria-label="Ir al Dashboard de Pycods">
+        <span class="brand-logo" aria-hidden="true">🚀</span>
+        <span class="brand-text">
+          <strong>Pycods</strong>
+          <small>Inclusión + Tecnología + Diversión</small>
+        </span>
+      </a>
+
+      <button pButton type="button" class="p-button-text p-button-rounded calm-btn" [icon]="calm ? 'pi pi-sun' : 'pi pi-moon'" [label]="calm ? 'Modo normal' : 'Modo calma'" [attr.aria-pressed]="calm" (click)="toggleCalm()"></button>
+
+      <nav class="navbar-actions" aria-label="Navegación principal" *ngIf="auth.user$ | async as user">
+        <span class="user-badge" title="{{ user.email }}">
+          <span aria-hidden="true">{{ avatarIcon(user.avatar) }}</span>
+          <span class="user-name">{{ user.nombre }}</span>
+        </span>
+        <button pButton label="Dashboard" icon="pi pi-home" class="p-button-text p-button-rounded" routerLink="/dashboard"></button>
+        <button pButton label="Juegos" icon="pi pi-th-large" class="p-button-text p-button-rounded" routerLink="/juegos/memoria"></button>
+        <button pButton label="Mi Monstruo" icon="pi pi-star" class="p-button-text p-button-rounded" routerLink="/monstruo"></button>
+        <button pButton label="Mi Perfil" icon="pi pi-user" class="p-button-text p-button-rounded" routerLink="/profile"></button>
+        <button *ngIf="user.rol === 'admin' || user.rol === 'docente'" pButton label="Docentes/Admin" icon="pi pi-chart-bar" class="p-button-text p-button-warning p-button-rounded" routerLink="/admin"></button>
+        <button pButton icon="pi pi-power-off" class="p-button-danger p-button-rounded p-button-text" aria-label="Cerrar sesión" (click)="logout()"></button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-main page-container">
+    <router-outlet></router-outlet>
+  </main>
+</div>

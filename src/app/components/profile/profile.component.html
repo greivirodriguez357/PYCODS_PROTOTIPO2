@@ -1,0 +1,27 @@
+<div class="pycods-card profile-card text-center">
+  <h2 class="text-3xl font-bold text-indigo-700 mb-1">¡Vamos a Conocerte Mejor! 👋</h2>
+  <p class="text-600 mb-4 font-medium">Personaliza tu perfil adaptativo TEACCH para una experiencia sensorial cómoda</p>
+
+  <div class="mb-5">
+    <h3 class="text-xl font-semibold text-700 mb-3">Elige tu Avatar</h3>
+    <div class="avatar-grid">
+      <button type="button" *ngFor="let avatar of avatars"
+           (click)="selectAvatar(avatar.id)"
+           [attr.aria-pressed]="selectedAvatar === avatar.id"
+           [class.is-selected]="selectedAvatar === avatar.id"
+           class="avatar-option">
+        <span class="text-5xl mb-2" aria-hidden="true">{{ avatar.icon }}</span>
+        <span class="font-bold text-700">{{ avatar.name }}</span>
+      </button>
+    </div>
+  </div>
+
+  <form [formGroup]="profileForm" (ngSubmit)="saveProfile()" class="flex flex-column gap-4 align-items-center">
+    <div class="w-full">
+      <h3 class="text-xl font-semibold text-700 mb-3">¿Cómo prefieres aprender?</h3>
+      <p-selectButton [options]="learningOptions" formControlName="preferencia" optionLabel="label" optionValue="value" styleClass="w-full"></p-selectButton>
+    </div>
+
+    <button pButton type="submit" label="¡Listo para Empezar! 🚀" class="p-button-success p-button-lg w-full mt-3" [loading]="saving"></button>
+  </form>
+</div>

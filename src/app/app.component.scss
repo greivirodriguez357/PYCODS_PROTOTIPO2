@@ -1,0 +1,78 @@
+:host { display: block; width: 100%; }
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.pycods-navbar {
+  background: #ffffff;
+  border-bottom: 5px solid transparent;
+  border-image: linear-gradient(90deg, #6366f1, #ec4899, #f59e0b, #10b981) 1;
+  box-shadow: 0 2px 12px rgba(99, 102, 241, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar-inner {
+  width: 100%;
+  max-width: var(--pycods-max-width);
+  margin-inline: auto;
+  padding: 0.75rem var(--pycods-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-logo {
+  width: 3rem; height: 3rem;
+  border-radius: 50%;
+  background: #6366f1;
+  display: grid; place-items: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  display: flex; flex-direction: column; line-height: 1.2;
+  strong { font-family: 'Fredoka', sans-serif; font-size: 1.5rem; color: #4338ca; }
+  small { font-size: 0.75rem; color: #64748b; font-weight: 600; }
+}
+
+.navbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.user-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.35rem 0.8rem; margin-right: 0.25rem;
+  border-radius: 999px; background: #eef2ff; color: #3730a3; font-weight: 700;
+  max-width: 14rem;
+  .user-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}
+
+.app-main { flex: 1 0 auto; }
+
+@media (max-width: 640px) {
+  .brand-text small { display: none; }
+  .user-badge .user-name { display: none; }
+  // En móvil los botones del menú muestran solo el icono
+  .navbar-actions ::ng-deep .p-button-label { display: none; }
+}
+
+.calm-btn { margin-left: auto; }

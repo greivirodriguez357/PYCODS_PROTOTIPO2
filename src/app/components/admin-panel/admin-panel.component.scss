@@ -1,0 +1,14 @@
+:host { display: block; width: 100%; }
+
+.admin-card { width: 100%; }
+
+.grid-wrapper {
+  width: 100%;
+  overflow-x: auto;           // en pantallas muy pequeñas la tabla se desplaza, la página no
+  ag-grid-angular {
+    display: block;
+    width: 100%;
+    min-width: 640px;
+    height: clamp(360px, 55vh, 520px);
+  }
+}

@@ -1,0 +1,66 @@
+<div class="dashboard" *ngIf="user">
+  <section class="hero">
+    <app-mascot [size]="150" mood="happy"></app-mascot>
+    <div class="hero-text">
+      <div class="bubble" role="status">
+        <strong>¡Hola, {{ user.nombre }}! 👋</strong>
+        <span>{{ nextMessage }}</span>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-chip s1"><span class="emo">🏆</span><div><small>NIVEL</small><b>{{ user.nivel }}</b></div></div>
+        <div class="stat-chip s2"><span class="emo">⚡</span><div><small>XP</small><b>{{ user.xp }}</b></div></div>
+        <div class="stat-chip s3"><span class="emo">🪙</span><div><small>MONEDAS</small><b>{{ user.monedas }}</b></div></div>
+        <div class="stat-chip s4"><span class="emo">🔥</span><div><small>RACHA</small><b>{{ user.racha }} días</b></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pycods-card trail-card">
+    <div class="trail-head">
+      <h3>🗺️ Tu camino de aventura</h3>
+      <span class="pct">{{ progresoGeneral }}% completado</span>
+    </div>
+    <ol class="trail">
+      <li *ngFor="let mod of modules; let i = index" [class]="'node ' + mod.estado" [style.--c]="mod.color">
+        <span class="dot">{{ mod.estado === 'completado' ? '✅' : mod.estado === 'bloqueado' ? '🔒' : mod.icon }}</span>
+        <span class="lbl">Reto {{ i + 1 }}</span>
+      </li>
+      <li class="node goal"><span class="dot">🏰</span><span class="lbl">¡Meta!</span></li>
+    </ol>
+    <p-progressBar [value]="progresoGeneral" [showValue]="false" styleClass="adventure-bar"></p-progressBar>
+  </section>
+
+  <h3 class="section-title">🎯 Elige tu reto</h3>
+  <p *ngIf="!loading && modules.length === 0" class="text-600">Aún no hay módulos disponibles.</p>
+  <div class="modules-grid">
+    <article *ngFor="let mod of modules" class="pycods-card module-card lift" [class]="'pycods-card module-card lift ' + mod.estado" [style.--c]="mod.color" [style.--soft]="mod.soft">
+      <div class="module-top">
+        <span class="module-icon" aria-hidden="true">{{ mod.icon }}</span>
+        <p-tag [value]="'+' + mod.xp + ' XP'" severity="warning" [rounded]="true"></p-tag>
+      </div>
+      <h4>{{ mod.titulo }}</h4>
+      <p>{{ mod.desc }}</p>
+      <div class="module-action">
+        <button *ngIf="mod.estado === 'disponible'" pButton label="¡Comenzar! 🚀" class="btn-module" [routerLink]="['/exercise', mod.id]"></button>
+        <button *ngIf="mod.estado === 'completado'" pButton label="Repasar ✅" class="btn-module p-button-outlined" [routerLink]="['/exercise', mod.id]"></button>
+        <button *ngIf="mod.estado === 'bloqueado'" pButton label="Pronto 🔒" class="p-button-secondary" [disabled]="true"></button>
+      </div>
+    </article>
+  </div>
+
+  <h3 class="section-title">🎮 Juegos y recompensas</h3>
+  <div class="modules-grid">
+    <article class="pycods-card module-card lift" style="--c:#ec4899; --soft:#fce7f3">
+      <div class="module-top"><span class="module-icon" aria-hidden="true">🧠</span><p-tag value="+5 🪙" severity="warning" [rounded]="true"></p-tag></div>
+      <h4>Juego de parejas</h4>
+      <p>Une cada palabra de Python con su significado y gana monedas.</p>
+      <div class="module-action"><button pButton label="¡Jugar! 🎲" class="btn-module" routerLink="/juegos/memoria"></button></div>
+    </article>
+    <article class="pycods-card module-card lift" style="--c:#06b6d4; --soft:#cffafe">
+      <div class="module-top"><span class="module-icon" aria-hidden="true">👾</span><p-tag [value]="user.monedas + ' 🪙'" severity="info" [rounded]="true"></p-tag></div>
+      <h4>Mi Monstruo</h4>
+      <p>Arma tu monstruo a tu gusto con las monedas que ganas.</p>
+      <div class="module-action"><button pButton label="Personalizar ✨" class="btn-module" routerLink="/monstruo"></button></div>
+    </article>
+  </div>
+</div>

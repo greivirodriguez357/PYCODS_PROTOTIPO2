@@ -1,0 +1,39 @@
+<div class="monster-page">
+  <div class="top">
+    <button pButton label="Volver" icon="pi pi-arrow-left" class="p-button-text p-button-rounded" routerLink="/dashboard"></button>
+    <div class="coins" aria-live="polite">🪙 <b>{{ monedas }}</b> monedas</div>
+  </div>
+
+  <div class="layout">
+    <section class="pycods-card stage">
+      <h2>👾 Mi Monstruo</h2>
+      <app-monster-avatar [ojos]="preview['ojos']" [boca]="preview['boca']" [color]="preview['color']" [accesorio]="preview['accesorio']" [size]="230"></app-monster-avatar>
+
+      <div class="confirm" *ngIf="pending" role="alertdialog" aria-label="Confirmar compra">
+        <p>¿Comprar <b>{{ pending.nombre }}</b> por 🪙 {{ pending.precio }}?</p>
+        <div class="confirm-btns">
+          <button pButton label="Sí, comprar" icon="pi pi-check" class="p-button-success" (click)="confirmBuy()"></button>
+          <button pButton label="No" icon="pi pi-times" class="p-button-secondary p-button-outlined" (click)="cancelBuy()"></button>
+        </div>
+      </div>
+
+      <p *ngIf="message" class="msg" [class.err]="isError" role="status">{{ message }}</p>
+      <p class="hint" *ngIf="!pending && !message">Toca una parte para ponérsela. Las que tienen 🪙 se compran con monedas.</p>
+    </section>
+
+    <section class="shop">
+      <div class="pycods-card group" *ngFor="let sec of sections">
+        <h3>{{ sec.titulo }}</h3>
+        <div class="items">
+          <button type="button" *ngFor="let it of itemsOf(sec.tipo)" class="item"
+                  [class.selected]="isSelected(it)" [class.locked]="!isOwned(it)" [class.pending]="pending?.id === it.id"
+                  [attr.aria-pressed]="isSelected(it)" (click)="choose(it)">
+            <span class="name">{{ it.nombre }}</span>
+            <span class="tag" *ngIf="isSelected(it)">✔ Puesto</span>
+            <span class="tag price" *ngIf="!isOwned(it)">🪙 {{ it.precio }}</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

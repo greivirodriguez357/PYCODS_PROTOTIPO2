@@ -1,0 +1,39 @@
+<div class="memory-page">
+  <div class="top">
+    <button pButton label="Volver" icon="pi pi-arrow-left" class="p-button-text p-button-rounded" routerLink="/dashboard"></button>
+    <div class="stats"><span>🎯 Intentos: <b>{{ moves }}</b></span><span>🧩 Parejas: <b>{{ matches }}/{{ total }}</b></span></div>
+  </div>
+
+  <section class="pycods-card">
+    <div class="intro">
+      <app-mascot [size]="95" [mood]="done ? 'cheer' : 'happy'"></app-mascot>
+      <div>
+        <h2>🧠 Juego de parejas de Python</h2>
+        <p>Une cada palabra de Python con lo que significa. Toca dos cartas para darles la vuelta.</p>
+      </div>
+    </div>
+
+    <div class="board" role="group" aria-label="Tablero de cartas">
+      <button type="button" *ngFor="let c of cards; let i = index" class="card"
+              [class.open]="c.flipped || c.matched" [class.matched]="c.matched" [class.term]="c.kind === 'term'"
+              [disabled]="c.matched" [attr.aria-label]="c.flipped || c.matched ? c.text : 'Carta ' + (i + 1) + ', boca abajo'"
+              (click)="flip(c)">
+        <ng-container *ngIf="c.flipped || c.matched; else back">
+          <span class="icon">{{ c.icon }}</span>
+          <span class="txt">{{ c.text }}</span>
+        </ng-container>
+        <ng-template #back><span class="q">❓</span></ng-template>
+      </button>
+    </div>
+
+    <div class="win" *ngIf="done" role="status" aria-live="polite">
+      <div class="stars" aria-hidden="true">⭐ ⭐ ⭐</div>
+      <h3>¡Encontraste todas las parejas!</h3>
+      <p>{{ reward }}</p>
+      <div class="win-btns">
+        <button pButton label="Jugar otra vez 🔁" class="p-button-success" (click)="newGame()"></button>
+        <button pButton label="Ir a Mi Monstruo 👾" class="p-button-outlined" routerLink="/monstruo"></button>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,44 @@
+<div class="flex flex-column gap-4">
+  <div class="flex justify-content-between align-items-center flex-wrap gap-2">
+    <button pButton label="Volver al Dashboard" icon="pi pi-arrow-left" class="p-button-text p-button-rounded" routerLink="/dashboard"></button>
+    <button pButton label="Escuchar Explicación 🔊" icon="pi pi-volume-up" class="p-button-warning p-button-rounded" (click)="playAudioGuide()"></button>
+  </div>
+
+  <div class="exercise-layout">
+    <div class="exercise-col">
+      <div class="pycods-card h-full">
+        <h2 class="text-2xl font-bold text-indigo-700 mt-0 mb-3 ex-title">{{ exerciseData.titulo }}</h2>
+        
+        <div class="bg-indigo-50 p-3 border-round-xl border-left-4 border-indigo-500 mb-4">
+          <h4 class="m-0 font-bold text-indigo-900 mb-1">💡 Teoría Simplificada</h4>
+          <p class="m-0 text-700 font-medium line-height-3">{{ exerciseData.teoria }}</p>
+        </div>
+
+        <h4 class="text-lg font-bold text-800 mb-2">📌 Tu Misión:</h4>
+        <p class="text-700 font-medium text-lg border-2 border-dashed border-indigo-200 p-3 border-round-xl bg-white">
+          {{ exerciseData.instruccion }}
+        </p>
+      </div>
+    </div>
+
+    <div class="exercise-col">
+      <div class="pycods-card flex flex-column gap-3 h-full">
+        <h3 class="text-xl font-bold text-800 m-0">Editor de Código Python 🐍</h3>
+        
+        <textarea rows="6" pInputTextarea [(ngModel)]="codeSolution" class="font-mono text-lg p-3 bg-gray-900 text-green-400 border-round-xl w-full" style="resize: none;"></textarea>
+
+        <button pButton label="Ejecutar Código 🚀" class="p-button-success p-button-lg w-full" (click)="runCode()"></button>
+
+        <div class="bg-gray-900 text-white p-3 border-round-xl border-1 border-gray-700 mt-2">
+          <span class="text-xs text-gray-400 font-bold block mb-1">💻 Consola de Salida:</span>
+          <pre class="m-0 font-mono text-green-300 text-base">{{ consoleOutput || 'Haz clic en "Ejecutar Código" para ver los resultados...' }}</pre>
+        </div>
+
+        <div class="feedback" *ngIf="feedbackMessage" [class.ok]="isSuccess" role="status" aria-live="polite">
+          <app-mascot [size]="95" [mood]="isSuccess ? 'cheer' : 'think'"></app-mascot>
+          <div><p>{{ feedbackMessage }}</p><div class="stars" *ngIf="isSuccess" aria-hidden="true">⭐ ⭐ ⭐</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

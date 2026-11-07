@@ -1,0 +1,65 @@
+:host { display: block; width: 100%; }
+.dashboard { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; }
+
+.hero {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-radius: 32px;
+  background: linear-gradient(120deg, #6366f1 0%, #8b5cf6 55%, #ec4899 120%);
+  box-shadow: 0 14px 30px -10px rgba(99, 102, 241, 0.5);
+}
+.hero-text { flex: 1 1 22rem; display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+
+.bubble {
+  position: relative; display: flex; flex-direction: column; gap: 0.2rem;
+  background: #fff; border-radius: 22px; padding: 0.9rem 1.2rem;
+  font-size: 1.1rem; color: #312e81; box-shadow: 0 6px 16px rgba(0,0,0,.12);
+  strong { font-family: 'Fredoka', sans-serif; font-size: 1.5rem; }
+  &::before { content: ''; position: absolute; left: -10px; top: 1.4rem; border: 10px solid transparent; border-left: 0; border-right-color: #fff; }
+}
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: 0.75rem; }
+.stat-chip {
+  display: flex; align-items: center; gap: 0.6rem; padding: 0.6rem 0.9rem;
+  border-radius: 20px; background: #fff; color: #1e293b;
+  .emo { font-size: 1.8rem; }
+  small { display: block; font-weight: 800; font-size: 0.7rem; letter-spacing: .05em; color: #64748b; }
+  b { font-family: 'Fredoka', sans-serif; font-size: 1.4rem; }
+  &.s1 { background: #fef3c7; } &.s2 { background: #cffafe; } &.s3 { background: #fef9c3; } &.s4 { background: #ffe4e6; }
+}
+
+.trail-card h3 { margin: 0; font-size: 1.4rem; }
+.trail-head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.pct { font-weight: 800; color: #4f46e5; background: #eef2ff; padding: .25rem .8rem; border-radius: 999px; }
+.trail { list-style: none; margin: 0 0 1rem; padding: 0; display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; overflow-x: auto; }
+.node {
+  flex: 1 0 4.5rem; display: flex; flex-direction: column; align-items: center; gap: .3rem; position: relative;
+  .dot { width: 3.6rem; height: 3.6rem; border-radius: 50%; display: grid; place-items: center; font-size: 1.7rem; background: #fff; border: 4px solid var(--c, #cbd5e1); z-index: 1; }
+  .lbl { font-weight: 700; font-size: .85rem; color: #475569; }
+  &:not(:last-child)::after { content: ''; position: absolute; top: 1.7rem; left: 50%; width: 100%; height: 6px; background: #e2e8f0; border-radius: 3px; }
+  &.completado .dot { background: #dcfce7; border-color: #22c55e; }
+  &.completado:not(:last-child)::after { background: #22c55e; }
+  &.disponible .dot { background: #fff; box-shadow: 0 0 0 6px rgba(99,102,241,.18); animation: pulse 2.4s ease-in-out infinite; }
+  &.bloqueado .dot { border-color: #cbd5e1; opacity: .75; }
+  &.goal .dot { border-color: #f59e0b; background: #fef3c7; }
+}
+@keyframes pulse { 50% { box-shadow: 0 0 0 11px rgba(99,102,241,.08); } }
+
+:host ::ng-deep .adventure-bar { height: 1.1rem; border-radius: 999px; background: #e2e8f0;
+  .p-progressbar-value { background: linear-gradient(90deg, #6366f1, #ec4899, #f59e0b); border-radius: 999px; } }
+
+.section-title { margin: .5rem 0 0; font-size: 1.6rem; }
+.modules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1.25rem; }
+
+.module-card {
+  display: flex; flex-direction: column; gap: .5rem; border-top: 10px solid var(--c); min-width: 0;
+  h4 { margin: .4rem 0 0; font-size: 1.35rem; color: #1e293b; }
+  p { margin: 0; color: #475569; flex: 1; }
+  &.bloqueado { filter: grayscale(.8); opacity: .7; }
+  &.completado { background: linear-gradient(#fff, var(--soft)); }
+}
+.module-top { display: flex; justify-content: space-between; align-items: center; }
+.module-icon { width: 4.8rem; height: 4.8rem; border-radius: 24px; display: grid; place-items: center; font-size: 2.6rem; background: var(--soft); }
+.module-action { margin-top: .75rem; display: flex; justify-content: flex-end; }
+:host ::ng-deep .btn-module { background: var(--c); border-color: var(--c); color: #fff; width: 100%; justify-content: center; font-size: 1.15rem;
+  &.p-button-outlined { background: transparent; color: var(--c); } }

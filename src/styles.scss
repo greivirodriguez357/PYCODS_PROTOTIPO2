@@ -1,0 +1,134 @@
+/* ==========================================================================
+   Pycods · estilos globales
+   Diseño sensorialmente suave (TEA): colores calmados, buen contraste,
+   sin animaciones bruscas, tipografía legible y objetivos táctiles amplios.
+   ========================================================================== */
+
+$primary-color: #6366f1;
+$primary-dark: #4338ca;
+$bg-soft: #f4f7fe;
+$text-dark: #2d3748;
+$card-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+
+:root {
+  --pycods-max-width: 1280px;
+  --pycods-gutter: clamp(1rem, 3vw, 2rem);
+  --pycods-radius: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+html, body { width: 100%; min-height: 100%; }
+
+body.pycods-theme {
+  margin: 0;
+  font-family: 'Nunito', 'Fredoka', sans-serif;
+  line-height: 1.55;
+  background:
+    radial-gradient(circle at 8% 12%, #e0e7ff 0, transparent 38%),
+    radial-gradient(circle at 92% 18%, #fce7f3 0, transparent 34%),
+    radial-gradient(circle at 85% 92%, #d1fae5 0, transparent 38%),
+    radial-gradient(circle at 10% 88%, #fef3c7 0, transparent 30%),
+    $bg-soft;
+  background-attachment: fixed;
+  color: $text-dark;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { font-family: 'Fredoka', 'Nunito', sans-serif; }
+
+/* ---------- Contenedor de página: fluido y de ancho completo ---------- */
+.page-container {
+  width: 100%;
+  max-width: var(--pycods-max-width);
+  margin-inline: auto;
+  padding: var(--pycods-gutter);
+}
+
+/* ---------- Tarjetas ---------- */
+.pycods-card {
+  background: #ffffff;
+  border-radius: var(--pycods-radius);
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: $card-shadow;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  min-width: 0; // evita que el contenido (tablas, <pre>) desborde la tarjeta
+}
+
+/* ---------- Botones PrimeNG ---------- */
+.p-button {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+  &:not(.p-button-text):not(.p-button-outlined):not(:disabled):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(99, 102, 241, 0.3);
+  }
+  &:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
+}
+
+// Botón principal de la marca
+.p-button.p-button-indigo {
+  background: $primary-color;
+  border-color: $primary-color;
+  color: #fff;
+  &:enabled:hover { background: $primary-dark; border-color: $primary-dark; color: #fff; }
+}
+
+// Los botones "sólidos" de acción tienen más presencia; los de texto (navbar) quedan compactos
+.p-button:not(.p-button-text):not(.p-button-icon-only) { padding: 0.75rem 1.5rem; }
+
+/* ---------- Campos de formulario ---------- */
+.p-inputtext, .p-dropdown {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.05rem;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+}
+.p-inputtext { padding: 0.75rem 1rem; }
+.p-dropdown { width: 100%; .p-dropdown-label { padding: 0.75rem 1rem; } }
+.p-password { width: 100%; display: block; .p-inputtext { width: 100%; } }
+.p-selectbutton { display: flex; flex-wrap: wrap; .p-button { flex: 1 1 12rem; justify-content: center; } }
+.p-message { width: 100%; }
+
+/* ---------- AG Grid ---------- */
+.ag-theme-alpine {
+  --ag-grid-size: 6px;
+  --ag-font-family: 'Nunito', sans-serif;
+  --ag-font-size: 15px;
+  --ag-border-radius: 16px;
+  --ag-header-background-color: #e0e7ff;
+  --ag-header-foreground-color: #3730a3;
+  --ag-odd-row-background-color: #f8faff;
+  --ag-row-hover-color: #eef2ff;
+}
+
+/* ---------- Accesibilidad ---------- */
+a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- Tarjetas más vivas ---------- */
+.pycods-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.lift:hover { transform: translateY(-4px); box-shadow: 0 16px 30px -8px rgba(99, 102, 241, 0.25); }
+
+/* ---------- Modo calma (sensorial): sin movimiento y colores atenuados ---------- */
+body.calm {
+  filter: saturate(0.7);
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .lift:hover { transform: none; }
+}

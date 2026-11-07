@@ -1,0 +1,24 @@
+<div class="pycods-card admin-card">
+  <div class="flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div>
+      <h2 class="text-3xl font-bold text-indigo-700 m-0">Panel Administrativo y Seguimiento Docente 📊</h2>
+      <p class="text-600 font-medium m-0 mt-1">Monitorea el progreso pedagógico y gamificado de los estudiantes con TEA</p>
+    </div>
+    <button pButton label="Exportar Reporte (CSV)" icon="pi pi-download" class="p-button-success p-button-rounded" (click)="exportData()"></button>
+  </div>
+
+  <p *ngIf="errorMessage" class="text-red-600 font-semibold">{{ errorMessage }}</p>
+
+  <div class="grid-wrapper">
+    <ag-grid-angular
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationPageSize]="5"
+      [animateRows]="false"
+      (gridReady)="onGridReady($event)">
+    </ag-grid-angular>
+  </div>
+</div>
